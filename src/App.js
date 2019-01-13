@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 2,
+      category: 1,
       result: '',
       trueResult: '',
       isWon: false,
@@ -20,6 +20,7 @@ class App extends Component {
       question: '',
       icon: '',
       gameOver: false,
+      categoryChoose: false,
     }
   }
   UNSAFE_componentWillMount = () => {
@@ -71,6 +72,7 @@ class App extends Component {
     // S'il n'y a plus de questions a proposer et qu'il lui reste une vie, le joueur a gagné
     else this.win() 
   }
+
   updateResult = (e) => {
     this.setState({
       result: e.target.value,
@@ -86,22 +88,45 @@ class App extends Component {
   }
   // Restaure tout à la valeur originale, relance le jeu en quelques sortes
   reset = () => {
-    console.log('wsh')
     this.setState({
       isWon: false,
+      gameOver: false,
       result: '',
       defaultMessage: '',
       questionIndex: 1,
       lifeIndex: 3,
-      trueResult: data.apis[this.state.category].api[this.state.questionIndex - 1].answer,
     })
   }
-  
+
+  updateCategoryIndex = (i) => {
+    this.setState({category: i})
+    this.setState({
+      categoryChoose: true,
+      isWon: false,
+      gameOver: false,
+      result: '',
+      defaultMessage: '',
+      questionIndex: 1,
+      lifeIndex: 3,
+    })
+  }
+
   render() {
+    let categoryClass = 'categories ';
+    if (this.props.categoryChoose === true) {
+      categoryClass += 'is-Hidden';
+    }
+    const listItems = data.apis.map((list, i) =>
+      <li key={list.id} index={i} onClick={() => this.updateCategoryIndex(i)}>
+        {list.id} {list.name}
+      </li>
+    );
     return (
-      <div>
+      <div className="global">
+        <div className={categoryClass}>
+          {listItems}
+        </div>
         <Form
-          message={this.state.bite}
           onChange2={this.updateResult}
           checkResult={this.checkResult}
           customMessage={this.state.defaultMessage}

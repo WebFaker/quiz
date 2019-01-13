@@ -3,12 +3,15 @@ import './App.css'
 
 class GameOver extends Component {
   render() {
-    let className = 'prout ';
+    let className = 'gameOver ';
     if (this.props.gameOver === true) {
       className += 'is-Active';
     }
     return (
-        <div className={className}>GAME OVER</div>
+      <div className={className}>
+        <div>GAME OVER</div>
+        <button onClick={this.props.reset}>replay</button>
+      </div>
     );
   }
 }
