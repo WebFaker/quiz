@@ -30,3 +30,17 @@
     transform: rotate(360deg);
   }
 }
+
+.prout {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  position: absolute;
+  top: 0;
+  display: none;
+}
+
+.is-Active {
+  display: block;
+  z-index: 999;
+}

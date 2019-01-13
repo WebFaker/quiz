@@ -5,7 +5,7 @@ class Form extends Component {
   render() {
     return (
         <div>
-            <p>Question: {this.props.questionIndex}/5 - Points: {this.props.pointsIndex}/5</p>
+            <p>Question: {this.props.questionIndex}/5 - Vies: {this.props.lifeIndex}/3</p>
             <p>{data.apis[this.props.category].api[this.props.questionIndex - 1].question}</p>
             <form
                 onSubmit={this.props.checkResult}>
@@ -16,6 +16,10 @@ class Form extends Component {
                     onChange={this.props.onChange2}
                 />
                 <button>SUBMIT</button>
+                <img
+                    src={data.apis[this.props.category].api[this.props.questionIndex - 1].image}
+                    alt="Devine le pokémon !"
+                />
                 <p>{this.props.icon}</p>
             </form>
             <p>{this.props.customMessage}</p>

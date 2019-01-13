@@ -29,9 +29,9 @@ const data = {
             name: 'Hentai categories',
             api: [
                 {
-                question: 'lesbienne',
-                answer: 'yuri',
-                url: 'http://lorempicsum.com/200/300'
+                    question: 'lesbienne',
+                    answer: 'yuri',
+                    url: 'http://lorempicsum.com/200/300'
                 },
                 {
                     question: 'gay',
@@ -57,7 +57,7 @@ const data = {
                 {
                     question: 'Quel est ce Pokémon ?',
                     answer: 'Pikachu',
-                    url: 'http://poketruc.free.fr/ombre/025.png'
+                    image: 'http://poketruc.free.fr/ombre/025.png'
                 },
                 {
                     question: 'Quel est ce Pokémon ?',
