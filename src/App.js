@@ -8,14 +8,14 @@ class App extends Component {
     super(props);
     this.state = {
       result: '',
-      trueResult: 'soleil',
+      trueResult: '',
       isWon: false,
       isChanging: false,      
       winMessage: 'Bravo, nardinamouk.',
       looseMessage: 'Nikemouk',
       questionIndex: 1,
       pointsIndex: 0,
-      question: 'WOWOWOWOOWO'      
+      question: ''      
     }
   }
   UNSAFE_componentWillMount = () => {
@@ -31,14 +31,17 @@ class App extends Component {
       this.setState({
         isWon: true,
         questionIndex: this.state.questionIndex + 1,
-        pointsIndex: this.state.pointsIndex + 1
+        pointsIndex: this.state.pointsIndex + 1,
+        trueResult: data[this.state.questionIndex].answer,
       })
     }
     else {
       this.setState({
         isWon: false,
-        questionIndex: this.state.questionIndex + 1
+        questionIndex: this.state.questionIndex + 1,
+        trueResult: data[this.state.questionIndex].answer,
       })
+      
     }
   }
   updateResult = (e) => {

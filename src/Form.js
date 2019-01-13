@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import data from './data';
 
 class Form extends Component {
   render() {
     return (
         <div>
             <p>Question: {this.props.questionIndex}/5 - Points: {this.props.pointsIndex}/5</p>
-            <p>{this.props.question}</p>
+            <p>{data[this.props.questionIndex - 1].question}</p>
             <form
                 onSubmit={this.props.checkResult}>
                 <input 
