@@ -16,8 +16,10 @@ class Form extends Component {
                     onChange={this.props.onChange2}
                 />
                 <button>SUBMIT</button>
+                <p>{this.props.icon}</p>
             </form>
             <p>{this.props.customMessage}</p>
+            <button onClick={this.props.reset}>replay</button>
         </div>
     );
   }

@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 0,
+      category: 2,
       result: '',
       trueResult: '',
       isWon: false,
@@ -16,7 +16,8 @@ class App extends Component {
       looseMessage: 'Nikemouk',
       questionIndex: 1,
       pointsIndex: 0,
-      question: ''      
+      question: '',
+      icon: ''      
     }
   }
   UNSAFE_componentWillMount = () => {
@@ -28,7 +29,7 @@ class App extends Component {
   }
   checkResult = (e) => {
     e.preventDefault(e);
-    if (this.state.questionIndex !== data.length) {
+    if (this.state.questionIndex !== data.apis[this.state.category].api.length) {
       if ( this.state.trueResult.toLowerCase() === this.state.result.toLowerCase()) {
         this.setState({
           isWon: true,
@@ -36,6 +37,7 @@ class App extends Component {
           questionIndex: this.state.questionIndex + 1,
           pointsIndex: this.state.pointsIndex + 1,
           trueResult: data.apis[this.state.category].api[this.state.questionIndex].answer,
+          icon: '✅'
         })
       }
       else {
@@ -44,31 +46,35 @@ class App extends Component {
           result: '',
           questionIndex: this.state.questionIndex + 1,
           trueResult: data.apis[this.state.category].api[this.state.questionIndex].answer,
+          icon: '❌'
         })
         
       }
     }
     else this.win()
   }
+  updateResult = (e) => {
+    this.setState({
+      result: e.target.value,
+      icon: '',
+      defaultMessage: ''
+    })
+
+    console.log(this.state.questionIndex);
+    console.log(this.state.trueResult);
+  }
   win = () => {
     this.setState({defaultMessage: this.state.isWon ? this.state.winMessage : this.state.looseMessage})
-    this.reset();
   }
   reset = () => {
+    console.log('wsh')
     this.setState({
       isWon: false,
       result: '',
       questionIndex: 1,
       pointsIndex: 0,
-      defaultMessage: '',
       trueResult: data.apis[this.state.category].api[this.state.questionIndex - 1].answer,
     })
-  }
-  updateResult = (e) => {
-    this.setState({result: e.target.value})
-
-    console.log(this.state.questionIndex);
-    console.log(this.state.trueResult);
   }
   
   render() {
@@ -83,6 +89,8 @@ class App extends Component {
         question={this.state.question}
         result={this.state.result}
         category={this.state.category}
+        icon={this.state.icon}
+        reset={this.reset}
       />
     );
   }
