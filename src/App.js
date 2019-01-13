@@ -117,7 +117,7 @@ class App extends Component {
       categoryClass += 'is-Hidden';
     }
     const listItems = data.apis.map((list, i) =>
-      <li key={list.id} index={i} onClick={() => this.updateCategoryIndex(i)}>
+      <li className="list" key={list.id} index={i} onClick={() => this.updateCategoryIndex(i)}>
         {list.id} {list.name}
       </li>
     );
