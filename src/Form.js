@@ -6,12 +6,13 @@ class Form extends Component {
     return (
         <div>
             <p>Question: {this.props.questionIndex}/5 - Points: {this.props.pointsIndex}/5</p>
-            <p>{data[this.props.questionIndex - 1].question}</p>
+            <p>{data.apis[this.props.category].api[this.props.questionIndex - 1].question}</p>
             <form
                 onSubmit={this.props.checkResult}>
                 <input 
                     type='text' 
                     placeholder='Ex: Pikachu'
+                    value={this.props.result}
                     onChange={this.props.onChange2}
                 />
                 <button>SUBMIT</button>

@@ -7,6 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      category: 0,
       result: '',
       trueResult: '',
       isWon: false,
@@ -21,28 +22,47 @@ class App extends Component {
   UNSAFE_componentWillMount = () => {
     console.log(data)
     this.setState({
-      question: data[this.state.questionIndex - 1].question,
-      trueResult: data[this.state.questionIndex - 1].answer,
+      question: data.apis[this.state.category].api[this.state.questionIndex - 1].question,
+      trueResult: data.apis[this.state.category].api[this.state.questionIndex - 1].answer,
     })
   }
   checkResult = (e) => {
     e.preventDefault(e);
-    if ( this.state.trueResult.toLowerCase() === this.state.result.toLowerCase()) {
-      this.setState({
-        isWon: true,
-        questionIndex: this.state.questionIndex + 1,
-        pointsIndex: this.state.pointsIndex + 1,
-        trueResult: data[this.state.questionIndex].answer,
-      })
+    if (this.state.questionIndex !== data.length) {
+      if ( this.state.trueResult.toLowerCase() === this.state.result.toLowerCase()) {
+        this.setState({
+          isWon: true,
+          result: '',
+          questionIndex: this.state.questionIndex + 1,
+          pointsIndex: this.state.pointsIndex + 1,
+          trueResult: data.apis[this.state.category].api[this.state.questionIndex].answer,
+        })
+      }
+      else {
+        this.setState({
+          isWon: false,
+          result: '',
+          questionIndex: this.state.questionIndex + 1,
+          trueResult: data.apis[this.state.category].api[this.state.questionIndex].answer,
+        })
+        
+      }
     }
-    else {
-      this.setState({
-        isWon: false,
-        questionIndex: this.state.questionIndex + 1,
-        trueResult: data[this.state.questionIndex].answer,
-      })
-      
-    }
+    else this.win()
+  }
+  win = () => {
+    this.setState({defaultMessage: this.state.isWon ? this.state.winMessage : this.state.looseMessage})
+    this.reset();
+  }
+  reset = () => {
+    this.setState({
+      isWon: false,
+      result: '',
+      questionIndex: 1,
+      pointsIndex: 0,
+      defaultMessage: '',
+      trueResult: data.apis[this.state.category].api[this.state.questionIndex - 1].answer,
+    })
   }
   updateResult = (e) => {
     this.setState({result: e.target.value})
@@ -57,10 +77,12 @@ class App extends Component {
         message={this.state.bite}
         onChange2={this.updateResult}
         checkResult={this.checkResult}
-        customMessage={this.state.isWon ? this.state.winMessage : this.state.looseMessage}
+        customMessage={this.state.defaultMessage}
         questionIndex={this.state.questionIndex}
         pointsIndex={this.state.pointsIndex}
         question={this.state.question}
+        result={this.state.result}
+        category={this.state.category}
       />
     );
   }
